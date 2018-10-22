@@ -231,13 +231,45 @@ var modulo = function(x, y) {
 
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
+//base case - y=0, return 0, y=1, return x
 var multiply = function(x, y) {
+	if (y === 0){
+		return 0;
+	}
+	if (y === 1){
+		return x;
+	}
+	if (y > 1){
+		return x + multiply(x, y-1);
+	}
+	if (y < 0){
+		y = -y;
+		return -(x + multiply(x, y-1)) 
+	}
+
 };
 
 // 13. Write a function that divides two numbers without using the / operator or
-// Math methods to arrive at an approximate quotient (ignore decimal endings).
+// Math methods to arrive at an approximate quotient (ignore decimal endings).\
+//base case - if y = 0, return NaN; if y=1, return x;
+10/3
+
 var divide = function(x, y) {
+	if (y === 0){
+		return NaN;
+	}
+	if (y === 1){
+		return x;
+	}
+
+	if (x < y){
+		return 0;
+	}else{
+		return divi
+	}
+	
 };
+
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
 // integers is the greatest integer that divides both x and y with no remainder.
