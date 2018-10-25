@@ -653,12 +653,37 @@ var compress = function(list) {
 // itself.
 // augmentElements([[],[3],[7]], 5); // [[5],[3,5],[7,5]]
 var augmentElements = function(array, aug) {
+  if (array.length === 0){
+    return [];
+  }
+
+  array[0].push(aug);
+  return [array[0]].concat(augmentElements(array.slice(1), aug))
+  
 };
 
 // 34. Reduce a series of zeroes to a single 0.
 // minimizeZeroes([2,0,0,0,1,4]) // [2,0,1,4]
 // minimizeZeroes([2,0,0,0,1,0,0,4]) // [2,0,1,0,4]
 var minimizeZeroes = function(array) {
+  if (array.length === 0){
+    return [];
+  }
+
+  var arr = [];
+
+  if (array[0] !== 0){
+    arr.push(array[0]);
+    return arr.concat(minimizeZeroes(array.slice(1)));
+  }else{
+    if (array[0] !== array[1]){
+      arr.push(array[0]);
+      return arr.concat(minimizeZeroes(array.slice(1)));
+    }else{
+      return arr.concat(minimizeZeroes(array.slice(1)));
+    }
+  }
+
 };
 
 // 35. Alternate the numbers in an array between positive and negative regardless of
@@ -666,12 +691,38 @@ var minimizeZeroes = function(array) {
 // alternateSign([2,7,8,3,1,4]) // [2,-7,8,-3,1,-4]
 // alternateSign([-2,-7,8,3,-1,4]) // [2,-7,8,-3,1,-4]
 var alternateSign = function(array) {
+  if (array.length === 0){
+    return [];
+  }
+
+  var arr = [];
+
+  //set first element to be positive, 
+  //push in to arr;
+  //next element look at previous element, and set to the opposite
+  //how to access the info from element before it?
+
+  return arr.concat(alternateSign(array.slice(1)))
+
 };
 
 // 36. Given a string, return a string with digits converted to their word equivalent.
 // Assume all numbers are single digits (less than 10).
 // numToText("I have 5 dogs and 6 ponies"); // "I have five dogs and six ponies"
 var numToText = function(str) {
+  if (str.length === 0){
+    return "";
+  }
+//these are the numbers we need to pass the test, 
+//for generic function, create obj for all numbers
+  var num = {"5": "five", "6": "six", "8": "eight"};
+
+  if (num[str[0]]){
+    return num[str[0]] + numToText(str.slice(1)); 
+  }else{
+    return str[0] + numToText(str.slice(1));
+  }
+
 };
 
 
@@ -679,6 +730,10 @@ var numToText = function(str) {
 
 // 37. Return the number of times a tag occurs in the DOM.
 var tagCount = function(tag, node) {
+  //use document.getElementByTagName to get array of all elements with the tag in the dom
+  //use recursion to count the array.
+  //create count function
+  //return 1 + count(array.slice(1))
 };
 
 // 38. Write a function for binary search.
@@ -686,6 +741,55 @@ var tagCount = function(tag, node) {
 // binarySearch(array, 5) // 5
 // https://www.khanacademy.org/computing/computer-science/algorithms/binary-search/a/binary-search
 var binarySearch = function(array, target, min, max) {
+  if (array[max] === target){
+    return max;
+  }
+
+  if (min >= max){
+    return null;
+  }
+
+  if (min === undefined){
+    min = 0;
+  }
+  if (max === undefined){
+    max = array.length -1;
+  }
+
+  var guess = Math.floor((max+min)/2);
+
+  if (array[guess] === target){
+    return guess;
+  }
+
+  if (target < array[guess]){
+    return binarySearch(array, target, min, guess-1)
+  }else{
+    return binarySearch(array, target, guess+1, max)
+  }
+
+
+
+//while loop method
+  // var min = 0;
+  // var max = array.length - 1;
+  // var guess;
+  // if (array[max] === target){
+  //   return max;
+  // }
+  // while(max > min){
+  //       guess = Math.floor((max+min)/2);
+  //       if(target === array[guess]){ 
+  //         return guess; 
+  //       }else if(target < array[guess]){
+  //         max = guess -1;
+  //       }else{
+  //         min = guess +1;
+  //       }
+  //   }
+  //   return null;
+
+
 };
 
 // 39. Write a merge sort function.
